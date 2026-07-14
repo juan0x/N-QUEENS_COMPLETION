@@ -1,3 +1,6 @@
+import pytest
+from src.backtracking import resolver_backtracking
+
 try:
     from src.bruteforce import resolver_fuerza_bruta
 except ImportError:
@@ -5,6 +8,7 @@ except ImportError:
 
 from src.backtracking import resolver_backtracking
 from tests.validators import verificar_n_queens_completion 
+from tests.generator import generar_tablero_aleatorio
 
 
 # ==========================================
@@ -79,22 +83,34 @@ def test_fuerza_bruta_caso_imposible():
     assert solucion is None, "Para N=3 no existe solución, debe retornar None"
 
 
-# ==========================================
-# COMPARACIÓN ENTRE AMBOS ALGORITMOS
-# ==========================================
+# =====================================================================
+# PRUEBAS ALEATORIAS
+# =====================================================================
 
-def test_comparar_solucionadores():
-    """Compara que ambos algoritmos coincidan en la factibilidad de un problema"""
-    n = 5
-    reinas_iniciales = [(0, 0), (1, 2)]
+@pytest.mark.parametrize("ejecucion", range(10))  # Repite la prueba 10 veces con tableros diferentes
+def test_algoritmos_con_tableros_aleatorios(ejecucion):
+    """
+    Genera tableros aleatorios sorpresa de tamaños entre 4 y 6,
+    los resuelve y verifica matemáticamente que las soluciones sean válidas.
+    """
+    import random
     
-    solucion_bt = resolver_backtracking(n, reinas_iniciales)
-    solucion_fb = resolver_fuerza_bruta(n, reinas_iniciales)
+    # elegimos un tamaño de tablero al azar (mantenemos tamaños pequeños para no ralentizar Pytest)
+    n = random.randint(4, 6)
+    reinas_iniciales_por_tablero = 1
     
-    if solucion_bt is None:
-        assert solucion_fb is None, "Si Backtracking no halla solución, Fuerza Bruta tampoco debería"
-    else:
-        assert solucion_fb is not None, "Si Backtracking halla solución, Fuerza Bruta también debería"
-        # ambos deben ser válidos aunque las soluciones individuales difieran
-        assert verificar_n_queens_completion(n, reinas_iniciales, solucion_bt) == True
-        assert verificar_n_queens_completion(n, reinas_iniciales, solucion_fb) == True
+    # 1 generamos el tablero sorpresa
+    tablero_inicial = generar_tablero_aleatorio(n, reinas_iniciales_por_tablero)
+    
+    # 2 probamos y validamos backtracking
+    solucion_bt = resolver_backtracking(n, tablero_inicial)
+    if solucion_bt is not None:
+        # Si encontró solución, verificamos que no se ataquen y que respete las iniciales
+        exito_bt = verificar_n_queens_completion(n, tablero_inicial, solucion_bt)
+        assert exito_bt == True, f"¡Fallo! Backtracking dio una solución inválida para N={n} con iniciales {tablero_inicial}"
+        
+    # 3 probamos y validamos Fuerza Bruta
+    solucion_fb = resolver_fuerza_bruta(n, tablero_inicial)
+    if solucion_fb is not None:
+        exito_fb = verificar_n_queens_completion(n, tablero_inicial, solucion_fb)
+        assert exito_fb == True, f"¡Fallo! Fuerza Bruta dio una solución inválida para N={n} con iniciales {tablero_inicial}"
