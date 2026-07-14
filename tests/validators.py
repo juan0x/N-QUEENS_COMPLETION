@@ -1,0 +1,2 @@
+import pytest
+from validators import verificar_n_queens_completion
