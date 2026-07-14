@@ -3,5 +3,15 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+
 venv/
+.venv/
 env/
+ENV/
+
+.DS_Store
+Thumbs.db
