@@ -1,3 +1,4 @@
+# configuracion principal de exclusiones
 __pycache__/
 *.py[cod]
 *$py.class
