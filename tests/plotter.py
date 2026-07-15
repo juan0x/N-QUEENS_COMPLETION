@@ -18,13 +18,15 @@ def generar_grafica():
     tamanos = datos["tamanos_n"]
     tiempos_fb = datos["tiempos_brute_force"]
     tiempos_bt = datos["tiempos_backtracking"]
+    tiempos_ls = datos["tiempos_local_search"]
     
     plt.figure(figsize=(10, 6))
     
     plt.plot(tamanos, tiempos_fb, label="Fuerza Bruta (Brute Force)", marker='o', color='#e74c3c', linewidth=2)
     plt.plot(tamanos, tiempos_bt, label="Backtracking", marker='s', color='#3498db', linewidth=2)
+    plt.plot(tamanos, tiempos_ls, marker='^', label='Búsqueda Local', color='green')
     
-    plt.title("Análisis de Rendimiento: Fuerza Bruta vs Backtracking", fontsize=14, fontweight='bold', pad=15)
+    plt.title("Análisis de Rendimiento: FB VS BT VS LS VS G", fontsize=14, fontweight='bold', pad=15)
     plt.xlabel("Tamaño del Tablero (N)", fontsize=12)
     plt.ylabel("Tiempo de Ejecución (milisegundos)", fontsize=12)
     

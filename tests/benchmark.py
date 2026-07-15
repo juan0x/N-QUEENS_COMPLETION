@@ -2,6 +2,8 @@ import time
 import json
 import os
 
+from src.local_search import resolver_local_search
+
 try:
     from src.bruteforce import resolver_fuerza_bruta
 except ImportError:
