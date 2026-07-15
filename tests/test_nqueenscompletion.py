@@ -1,5 +1,4 @@
 import pytest
-from src.backtracking import resolver_backtracking
 
 try:
     from src.bruteforce import resolver_fuerza_bruta
@@ -7,6 +6,9 @@ except ImportError:
     from src.bruteforce import resolver_fuerza_bruta
 
 from src.backtracking import resolver_backtracking
+from src.local_search import resolver_local_search
+from src.genetic_algorithm import solve_completion_ga
+
 from tests.validators import verificar_n_queens_completion 
 from tests.generator import generar_tablero_aleatorio
 
@@ -114,3 +116,9 @@ def test_algoritmos_con_tableros_aleatorios(ejecucion):
     if solucion_fb is not None:
         exito_fb = verificar_n_queens_completion(n, tablero_inicial, solucion_fb)
         assert exito_fb == True, f"¡Fallo! Fuerza Bruta dio una solución inválida para N={n} con iniciales {tablero_inicial}"
+
+    # 4 probamos y validamos Local Search
+    solucion_ls = resolver_local_search(n, tablero_inicial)
+    if solucion_ls is not None:
+        exito_ls = verificar_n_queens_completion(n, tablero_inicial, solucion_fb)
+        assert exito_ls == True, f"¡Fallo! Local Search dio una solución inválida para N={n} con iniciales {tablero_inicial}"
