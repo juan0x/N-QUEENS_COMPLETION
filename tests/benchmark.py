@@ -12,7 +12,7 @@ except ImportError:
 from src.backtracking import resolver_backtracking
 from src.local_search import resolver_local_search
 from src.genetic_algorithm import solve_completion_ga
-from tests.generator import generar_tablero_aleatorio
+from tests.generator import generar_tablero_aleatorio, restriccion_perm_aleatoria
 
 def ejecutar_pruebas_rendimiento():
     """
@@ -39,6 +39,7 @@ def ejecutar_pruebas_rendimiento():
         
         # 1 generamos el tablero sorpresa
         tablero_inicial = generar_tablero_aleatorio(n, reinas_iniciales_por_tablero)
+        restriccion_perm = restriccion_perm_aleatoria(n,tablero_inicial)
         
         #  medimos el tiempo de fuerza bruta
         inicio_fb = time.perf_counter()
@@ -60,7 +61,7 @@ def ejecutar_pruebas_rendimiento():
 
         #  medimos el tiempo de genetic_algorithm
         inicio_ga = time.perf_counter()
-        solve_completion_ga(n, tablero_inicial)
+        solve_completion_ga(n, restriccion_perm)
         fin_ga = time.perf_counter()
         tiempo_ga = (fin_ga - inicio_ga) * 1000  
 
