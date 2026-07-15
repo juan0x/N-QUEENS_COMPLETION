@@ -84,6 +84,7 @@ def test_fuerza_bruta_caso_imposible():
     
     assert solucion is None, "Para N=3 no existe solución, debe retornar None"
 
+
 # =====================================================================
 # PRUEBAS ALEATORIAS
 # =====================================================================
@@ -120,11 +121,11 @@ def test_algoritmos_con_tableros_aleatorios(ejecucion):
     # 4 probamos y validamos Local Search
     solucion_ls = resolver_local_search(n, tablero_inicial)
     if solucion_ls is not None:
-        exito_ls = verificar_n_queens_completion(n, tablero_inicial, solucion_fb)
+        exito_ls = verificar_n_queens_completion(n, tablero_inicial, solucion_ls)
         assert exito_ls == True, f"¡Fallo! Local Search dio una solución inválida para N={n} con iniciales {tablero_inicial}"
     
     # 5 probamos y validamos Algoritmo Genético
-    solucion_ga = solve_completion_ga(n, restriccion_perm)
+    solucion_ga = solve_completion_ga(n, restriccion_perm_aleatoria)
     if solucion_ga is not None:
-        exito_ga = verificar_n_queens_completion(n, tablero_inicial, solucion_fb)
+        exito_ga = verificar_n_queens_completion(n, tablero_inicial, solucion_ga)
         assert exito_ga == True, f"¡Fallo! Algoritmo Genético dio una solución inválida para N={n} con iniciales {tablero_inicial}"
