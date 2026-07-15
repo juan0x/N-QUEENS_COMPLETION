@@ -10,7 +10,7 @@ from src.local_search import resolver_local_search
 from src.genetic_algorithm import solve_completion_ga
 
 from tests.validators import verificar_n_queens_completion 
-from tests.generator import generar_tablero_aleatorio
+from tests.generator import generar_tablero_aleatorio, restriccion_perm_aleatoria
 
 
 # ==========================================
@@ -103,6 +103,7 @@ def test_algoritmos_con_tableros_aleatorios(ejecucion):
     
     # 1 generamos el tablero sorpresa
     tablero_inicial = generar_tablero_aleatorio(n, reinas_iniciales_por_tablero)
+    restriccion_perm = restriccion_perm_aleatoria(n, tablero_inicial)
     
     # 2 probamos y validamos backtracking
     solucion_bt = resolver_backtracking(n, tablero_inicial)
@@ -122,3 +123,9 @@ def test_algoritmos_con_tableros_aleatorios(ejecucion):
     if solucion_ls is not None:
         exito_ls = verificar_n_queens_completion(n, tablero_inicial, solucion_fb)
         assert exito_ls == True, f"¡Fallo! Local Search dio una solución inválida para N={n} con iniciales {tablero_inicial}"
+    
+    # 5 probamos y validamos Algoritmo Genético
+    solucion_ga = solve_completion_ga(n, (tablero_inicial))
+    if solucion_ga is not None:
+        exito_ga = verificar_n_queens_completion(n, tablero_inicial, solucion_fb)
+        assert exito_ga == True, f"¡Fallo! Algoritmo Genético dio una solución inválida para N={n} con iniciales {tablero_inicial}"

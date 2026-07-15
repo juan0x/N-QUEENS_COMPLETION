@@ -45,8 +45,3 @@ def restriccion_perm_aleatoria(n,tablero):
     for (r,c) in tablero:
         base[r]=c
     return base
-
-tab = generar_tablero_aleatorio(8,3)
-print(tab)
-per = restriccion_perm_aleatoria(8,tab)
-print(per)
