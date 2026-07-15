@@ -3,6 +3,7 @@ import json
 import os
 
 from src.local_search import resolver_local_search
+from src.genetic_algorithm import resolver_genetico_adapter
 
 try:
     from src.bruteforce import resolver_fuerza_bruta
@@ -61,7 +62,7 @@ def ejecutar_pruebas_rendimiento():
 
         #  medimos el tiempo de genetic_algorithm
         inicio_ga = time.perf_counter()
-        solve_completion_ga(n, restriccion_perm)
+        resolver_genetico_adapter(n, tablero_inicial)
         fin_ga = time.perf_counter()
         tiempo_ga = (fin_ga - inicio_ga) * 1000  
 

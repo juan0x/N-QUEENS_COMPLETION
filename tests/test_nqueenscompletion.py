@@ -1,5 +1,7 @@
 import pytest
 
+from src.genetic_algorithm import resolver_genetico_adapter
+
 try:
     from src.bruteforce import resolver_fuerza_bruta
 except ImportError:
@@ -118,14 +120,14 @@ def test_algoritmos_con_tableros_aleatorios(ejecucion):
         exito_fb = verificar_n_queens_completion(n, tablero_inicial, solucion_fb)
         assert exito_fb == True, f"¡Fallo! Fuerza Bruta dio una solución inválida para N={n} con iniciales {tablero_inicial}"
 
-    # 4 probamos y validamos Local Search
+# 4. Probamos Búsqueda Local
     solucion_ls = resolver_local_search(n, tablero_inicial)
     if solucion_ls is not None:
         exito_ls = verificar_n_queens_completion(n, tablero_inicial, solucion_ls)
-        assert exito_ls == True, f"¡Fallo! Local Search dio una solución inválida para N={n} con iniciales {tablero_inicial}"
-    
-    # 5 probamos y validamos Algoritmo Genético
-    solucion_ga = solve_completion_ga(n, restriccion_perm)
+        assert exito_ls == True, f"¡Fallo LS! Búsqueda Local devolvió: {solucion_ls}"
+
+    # 5. Probamos Algoritmo Genético
+    solucion_ga = resolver_genetico_adapter(n, tablero_inicial)
     if solucion_ga is not None:
-        exito_ga = verificar_n_queens_completion(n, tablero_inicial, perm_conjunto_entero(solucion_ga))
-        assert exito_ga == True, f"¡Fallo! Algoritmo Genético dio una solución inválida para N={n} con iniciales {tablero_inicial}"
+        exito_ga = verificar_n_queens_completion(n, tablero_inicial, solucion_ga)
+        assert exito_ga == True, f"¡Fallo GA! Genético devolvió: {solucion_ga}"

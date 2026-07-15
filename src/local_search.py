@@ -52,4 +52,4 @@ def resolver_local_search(n, reinas_iniciales, max_iter=1000):
     if conflictos(reinas_colocadas):
         return None
         
-    return list(reinas_colocadas)
+    return sorted(list(reinas_colocadas))

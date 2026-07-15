@@ -19,12 +19,14 @@ def generar_grafica():
     tiempos_fb = datos["tiempos_brute_force"]
     tiempos_bt = datos["tiempos_backtracking"]
     tiempos_ls = datos["tiempos_local_search"]
+    tiempos_ga = datos["tiempos_genetic_algorithm"]
     
     plt.figure(figsize=(10, 6))
     
-    plt.plot(tamanos, tiempos_fb, label="Fuerza Bruta (Brute Force)", marker='o', color='#e74c3c', linewidth=2)
+    plt.plot(tamanos, tiempos_fb, label="Fuerza Bruta", marker='o', color='#e74c3c', linewidth=2)
     plt.plot(tamanos, tiempos_bt, label="Backtracking", marker='s', color='#3498db', linewidth=2)
-    plt.plot(tamanos, tiempos_ls, marker='^', label='Búsqueda Local', color='green')
+    plt.plot(tamanos, tiempos_ls, label="Búsqueda Local", marker='^', color='#2ecc71', linewidth=2)
+    plt.plot(tamanos, tiempos_ga, label="Algoritmo Genético", marker='d', color='#9b59b6', linewidth=2)
     
     plt.title("Análisis de Rendimiento: FB VS BT VS LS VS G", fontsize=14, fontweight='bold', pad=15)
     plt.xlabel("Tamaño del Tablero (N)", fontsize=12)
