@@ -45,3 +45,14 @@ def restriccion_perm_aleatoria(n,tablero):
     for (r,c) in tablero:
         base[r]=c
     return base
+
+def perm_conjunto_entero(perm):
+    queens = []
+    for i in range(len(perm)):
+        queens.append((i,perm[i]))
+    return queens
+
+perm = [2,1,0]
+
+print(perm_conjunto_entero(perm))
+

@@ -10,7 +10,7 @@ from src.local_search import resolver_local_search
 from src.genetic_algorithm import solve_completion_ga
 
 from tests.validators import verificar_n_queens_completion 
-from tests.generator import generar_tablero_aleatorio, restriccion_perm_aleatoria
+from tests.generator import generar_tablero_aleatorio, restriccion_perm_aleatoria,perm_conjunto_entero
 
 
 # ==========================================
@@ -125,7 +125,7 @@ def test_algoritmos_con_tableros_aleatorios(ejecucion):
         assert exito_ls == True, f"¡Fallo! Local Search dio una solución inválida para N={n} con iniciales {tablero_inicial}"
     
     # 5 probamos y validamos Algoritmo Genético
-    solucion_ga = solve_completion_ga(n, restriccion_perm_aleatoria)
+    solucion_ga = solve_completion_ga(n, restriccion_perm)
     if solucion_ga is not None:
-        exito_ga = verificar_n_queens_completion(n, tablero_inicial, solucion_ga)
+        exito_ga = verificar_n_queens_completion(n, tablero_inicial, perm_conjunto_entero(solucion_ga))
         assert exito_ga == True, f"¡Fallo! Algoritmo Genético dio una solución inválida para N={n} con iniciales {tablero_inicial}"
